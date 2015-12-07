@@ -82,10 +82,10 @@ SCHEDULER.every '5m', :first_in => 0 do
     'filters' => 'ga:pagePath==reports-submitted',
   })
 
-  count_of_regs = registrationsCount.data.rows.nil ? 0 : registrationsCount.data.rows[0][0].to_i
-  count_of_submits = submissionsCount.data.rows.nil ? 0 : submissionsCount.data.rows[0][0].to_i
-  count_of_regs_this_week = registrations_this_week.data.rows.nil ? 0 : registrations_this_week.data.rows[0][0].to_i
-  count_of_submits_this_week = submissions_this_week.data.rows.nil ? 0 : submissions_this_week.data.rows[0][0].to_i
+  count_of_regs = registrationsCount.data.rows.nil? ? 0 : registrationsCount.data.rows[0][0].to_i
+  count_of_submits = submissionsCount.data.rows.nil? ? 0 : submissionsCount.data.rows[0][0].to_i
+  count_of_regs_this_week = registrations_this_week.data.rows.nil? ? 0 : registrations_this_week.data.rows[0][0].to_i
+  count_of_submits_this_week = submissions_this_week.data.rows.nil? ? 0 : submissions_this_week.data.rows[0][0].to_i
 
   # Update the dashboard
   # Note the trailing to_i - See: https://github.com/Shopify/dashing/issues/33
