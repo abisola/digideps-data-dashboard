@@ -1,0 +1,6 @@
+dashboard:
+  build: .
+  ports:
+    - 80:80
+  environment:
+    OPG_DASHBOARD_GA_KEY: ${OPG_DASHBOARD_GA_KEY}

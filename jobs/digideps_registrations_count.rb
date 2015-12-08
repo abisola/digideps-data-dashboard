@@ -4,7 +4,7 @@ require 'date'
 
 # Update these to match your own apps credentials
 service_account_email = 'account-1@digideps-analytics.iam.gserviceaccount.com' # Email of service account
-key_file = '/Users/abisola/dev/Digideps-Analytics-9ababd74caf6.p12' # File containing your private key
+key_file = '/app/ga-key.p12' # File containing your private key
 key_secret = 'notasecret' # Password to unlock private key
 profileID = '105292338' # Analytics profile ID.
 

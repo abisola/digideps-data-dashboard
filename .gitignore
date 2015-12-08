@@ -1,4 +1,4 @@
-
 *.lock
-
 history.yml
+*.p12
+*~
