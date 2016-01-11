@@ -31,7 +31,7 @@ SCHEDULER.every '5m', :first_in => 0 do
   analytics = client.discovered_api('analytics','v3')
 
   # Start and end dates
-  startDate = DateTime.now.strftime("%Y-11-17") # first day [17th November, 2015]
+  startDate = DateTime.now.strftime("2015-11-17") # first day [17th November, 2015]
   endDate = DateTime.now.strftime("%Y-%m-%d")  # now
 
   #first day of the week
@@ -82,10 +82,10 @@ SCHEDULER.every '5m', :first_in => 0 do
     'filters' => 'ga:pagePath==reports-submitted',
   })
 
-  count_of_regs = registrationsCount.data.rows.nil? ? 0 : registrationsCount.data.rows[0][0].to_i
-  count_of_submits = submissionsCount.data.rows.nil? ? 0 : submissionsCount.data.rows[0][0].to_i
-  count_of_regs_this_week = registrations_this_week.data.rows.nil? ? 0 : registrations_this_week.data.rows[0][0].to_i
-  count_of_submits_this_week = submissions_this_week.data.rows.nil? ? 0 : submissions_this_week.data.rows[0][0].to_i
+  count_of_regs = registrationsCount.data.rows.empty? ? 0 : registrationsCount.data.rows[0][0].to_i
+  count_of_submits = submissionsCount.data.rows.empty? ? 0 : submissionsCount.data.rows[0][0].to_i
+  count_of_regs_this_week = registrations_this_week.data.rows.empty? ? 0 : registrations_this_week.data.rows[0][0].to_i
+  count_of_submits_this_week = submissions_this_week.data.rows.empty? ? 0 : submissions_this_week.data.rows[0][0].to_i
 
   # Update the dashboard
   # Note the trailing to_i - See: https://github.com/Shopify/dashing/issues/33
