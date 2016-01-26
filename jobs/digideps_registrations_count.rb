@@ -35,12 +35,17 @@ SCHEDULER.every '5m', :first_in => 0 do
   endDate = DateTime.now.strftime("%Y-%m-%d")  # now
 
   #first day of the week
-  _t = Time.now
+  _t = Date.today
 
   _week_start = _t.beginning_of_week.strftime("%Y-%m-%d")
+  _previous_week_start = (_t.beginning_of_week - 7).strftime("%Y-%m-%d")
+  _previous_week_end = (_t.beginning_of_week - 1).strftime("%Y-%m-%d")
 
   print('start date of the week: ')
   puts(_week_start)
+
+  print('start date of the previous week: ')
+  puts(_previous_week_start)
 
   # Execute the query
   registrationsCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
@@ -82,10 +87,19 @@ SCHEDULER.every '5m', :first_in => 0 do
     'filters' => 'ga:pagePath==reports-submitted',
   })
 
+  submissions_last_week = client.execute(:api_method => analytics.data.ga.get, :parameters => {
+    'ids' => "ga:" + profileID,
+    'start-date' => _previous_week_start,
+    'end-date' => _previous_week_end,
+    'metrics' => "ga:uniquePageviews",
+    'filters' => 'ga:pagePath==reports-submitted',
+  })
+
   count_of_regs = registrationsCount.data.rows.empty? ? 0 : registrationsCount.data.rows[0][0].to_i
   count_of_submits = submissionsCount.data.rows.empty? ? 0 : submissionsCount.data.rows[0][0].to_i
   count_of_regs_this_week = registrations_this_week.data.rows.empty? ? 0 : registrations_this_week.data.rows[0][0].to_i
   count_of_submits_this_week = submissions_this_week.data.rows.empty? ? 0 : submissions_this_week.data.rows[0][0].to_i
+  count_of_submits_last_week = submissions_last_week.data.rows.empty? ? 0 : submissions_last_week.data.rows[0][0].to_i
 
   # Update the dashboard
   # Note the trailing to_i - See: https://github.com/Shopify/dashing/issues/33
@@ -96,5 +110,7 @@ SCHEDULER.every '5m', :first_in => 0 do
   send_event('submissions_this_week',   { current:  count_of_submits_this_week})
 
   send_event('registrations_this_week',   { current: count_of_regs_this_week })
+
+  send_event('submissions_last_week',   { current: count_of_submits_last_week })
 
 end
