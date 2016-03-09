@@ -4,8 +4,8 @@ RUN  apt-get -y update
 RUN  apt-get -y install ruby2.0 ruby2.0-dev nodejs
 RUN  gem2.0 install bundle dashing
 
-ADD Gemfile /app
-ADD Gemfile.lock /app
+ADD Gemfile /app/
+ADD Gemfile.lock /app/
 WORKDIR /app
 RUN  bundle
 
