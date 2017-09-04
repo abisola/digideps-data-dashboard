@@ -1,4 +1,4 @@
-FROM registry.service.dsd.io/opguk/nginx:0.1.78
+FROM registry.service.dsd.io/opguk/nginx
 
 RUN  apt-get -y update
 RUN  apt-get -y install ruby2.0 ruby2.0-dev nodejs
